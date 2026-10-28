@@ -124,10 +124,10 @@ The Agent SDK needs one of these environment variables:
 - `CLAUDE_CODE_OAUTH_TOKEN`: a token for your Claude subscription. Create one with
   `claude setup-token`.
 
-Put it in `.env`:
+Copy the example file to `.env`, then fill in one of the two options in it:
 
-```
-CLAUDE_CODE_OAUTH_TOKEN=your-token-here
+```bash
+cp .env.example .env
 ```
 
 `app.py` loads `.env` automatically at startup with `python-dotenv`. `find_dotenv()`
