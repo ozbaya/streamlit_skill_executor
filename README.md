@@ -18,6 +18,41 @@ result, without installing the skill or using Claude directly. The example here
 uses Streamlit and a skill that turns lecture notes into slides, but the same
 pattern works for any skill.
 
+## How it works
+
+```mermaid
+flowchart LR
+    user["User<br/>web browser"]
+
+    subgraph server["Your server (Python 3.10+)"]
+        app["Streamlit app<br/>app.py"]
+        sdk["Claude Agent SDK<br/>with a Bash safety hook"]
+        subgraph run["One folder per run: runs/timestamp/"]
+            skill["Skill<br/>.claude/skills/lecture_slides"]
+            scripts["Python scripts<br/>pdfplumber, pypdf, reportlab"]
+        end
+    end
+
+    claude["Claude API<br/>Anthropic"]
+
+    user -- "upload PDF + instructions" --> app
+    app -- "/lecture_slides prompt" --> sdk
+    sdk <-->|"model calls"| claude
+    sdk -- "loads SKILL.md" --> skill
+    sdk -- "runs via Bash" --> scripts
+    scripts -- "slide deck PDF" --> app
+    app -- "download button" --> user
+```
+
+| Layer | Technology | Role |
+|---|---|---|
+| Front end | [Streamlit](https://streamlit.io/) | Upload form, live progress log, download button |
+| Agent runtime | [Claude Agent SDK](https://docs.claude.com/en/api/agent-sdk/overview) | Runs Claude with the skill and file/shell tools in a per-run folder |
+| Model | Claude via the Anthropic API | Reads the notes, plans the deck, writes `slides.json` |
+| Skill | `SKILL.md` + scripts | Step-by-step instructions and tools for the task |
+| PDF tools | pdfplumber, pypdf, reportlab | Extract text from the input PDF, render the slide PDF |
+| Config | python-dotenv | Loads the API key or subscription token from `.env` |
+
 ## What's in this folder
 
 This folder holds two things:
