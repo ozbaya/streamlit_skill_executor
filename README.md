@@ -49,6 +49,15 @@ This folder holds two things:
 
 ## Two ways to run the skill
 
+### First: clone this repo to your computer
+
+Both options need a local copy of this project:
+
+```bash
+git clone https://github.com/ozbaya/streamlit_skill_executor.git
+cd streamlit_skill_executor
+```
+
 ### Option A: In Claude Code
 
 Open Claude Code in this folder. It picks up the skill from `.claude/skills/`.
