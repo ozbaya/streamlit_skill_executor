@@ -1,5 +1,25 @@
 # Streamlit Skill Executor
 
+## Why this project exists
+
+Claude Skills are great for personal use. You put a skill in your own Claude
+setup, and Claude can use it whenever you need it.
+
+Getting a skill to other people is harder. Today you have to share the skill
+folder, and each person has to install it into their own Claude. That doesn't
+work for a production setting, where users shouldn't need to know what a skill
+is, install anything, or have Claude set up at all.
+
+This project is a simple demo of another approach: wrap the skill in a small web
+app. The app runs the skill on a server with the
+[Claude Agent SDK](https://docs.claude.com/en/api/agent-sdk/overview), so anyone
+with a browser can use it. They upload a file, click **Run**, and download the
+result, without installing the skill or using Claude directly. The example here
+uses Streamlit and a skill that turns lecture notes into slides, but the same
+pattern works for any skill.
+
+## What's in this folder
+
 This folder holds two things:
 
 1. **A Claude Code skill, `lecture_slides`**, that turns a PDF of lecture notes into a
